@@ -1,0 +1,22 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<link rel="shortcut icon" href="data:;base64,=">
+	<link rel="icon"          href="data:;base64,=">
+	<title>{{ .HtmlTitle }}</title>
+	<script type="text/javascript">
+		const something = "irgendwas";
+	</script>
+	<style type="text/css">
+		.ib { display:inline-block; }		
+	</style>
+</head>
+<body>
+	<!-- following span is to make the body extractable by splitting it -->
+	<span class='body'></span>
+	{{template "index.html" .}}
+	<span class='body'></span>
+</body>
+</html>
+
+

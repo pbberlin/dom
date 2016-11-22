@@ -1,0 +1,25 @@
+{
+	"html_title":               "Proxifier",
+
+	"url_param_key":            "urlx",
+	"form_redirect_key":        "redirect-to",
+
+	"proxify_uri":              "/proxify/output",
+	"formredirector_uri":       "/proxify/form-redirector",
+
+	"dedup_uri":                "/proxify/dedup",
+	"do_dedup":                 false,
+	
+	"fallback_to_http_dev_srv" : true,
+	"advance_to_https_live_srv": false,
+
+	"add_outline":               true,
+	"add_id_attr":               true,
+	"beautify":                  true,
+
+	"css": 
+	{ 
+		"body-background-color":"#d8d8ec",
+		"last-line":"#no-comma"
+	}
+}

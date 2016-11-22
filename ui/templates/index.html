@@ -1,0 +1,62 @@
+{{if ne .ResponseInfo ""}}
+	<div style='white-space: pre-wrap;font-family: monospace;'>{{ .ResponseInfo }}
+	</div>
+{{end}}
+
+<form action="{{.Protocol}}://{{.Host}}{{.Path}}" method="post" >
+<div style='margin:8px;'>
+
+  	<span class='ib' style='width:99%'>
+  		URL<br />
+  		<input id='i1' name="{{.UrlParamKey}}"	style='width:90%;height:96px;'
+  			size="80"  
+  	  		value="{{.Url}}"
+  		>
+  	 </span>
+
+
+		<br/>
+		<br/>
+		<br/>
+
+
+	<!-- <input type="submit" value="Fetch" accesskey='f'  style='width:90%;height:96px;'> -->
+	<button 
+		type='submit' 
+		name='submit2' 
+		style='width:90%;height:96px;font-size:200%'  
+		accesskey='f'
+	><b style='font-size: 125%'>F</b>etch</button>
+
+		<br/>
+
+	<span class='ib' style='width:99%'>&nbsp;</span>
+	  <a href='#' onclick='document.getElementById("i1").value=""' style='font-size:42px;' 
+	  >Clear</a>
+	</span>
+
+		<br/>
+
+
+	Skip Proxify <input type="checkbox" name="skip_proxify" 
+		value="true"  
+		{{if eq true .ProcessOptions.SkipProxify}}checked{{end}} 
+	>
+
+	<br>
+
+	Skip Purge Scripts and Styles <input type="checkbox" name="skip_purge_scripts_and_styles" 
+		value="true"  
+		{{if eq true .ProcessOptions.SkipPurgeScriptsAndStyles}}checked{{end}} 
+	>
+
+	<br>
+
+	Skip Image to Link <input type="checkbox" name="skip_img2link" 
+		value="true"  
+		{{if eq true .ProcessOptions.SkipImage2Link}}checked{{end}} 
+	>
+
+
+</div>
+</form>
