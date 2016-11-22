@@ -34,8 +34,8 @@ $( document ).ready(function() {
 
     var hidingCountdownID = 0;
 
-    console.log("window name is",window.name);
-    if (window.name==="research") {
+    console.log("tampermonk: window name is",window.name, "val is", window.val);
+    if (window.name==="ExcelDB_window") {
         console.log("active");
     }
 
