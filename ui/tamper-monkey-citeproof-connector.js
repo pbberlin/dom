@@ -5,8 +5,8 @@
 // @namespace    http://your.homepage/
 // @version      0.123
 // @author       iche
-// @downloadURL
-// @updateURL
+// @downloadURL  https://raw.githubusercontent.com/pbberlin/dom/master/ui/tamper-monkey-citeproof-connector.js
+// @updateURL    https://raw.githubusercontent.com/pbberlin/dom/master/ui/tamper-monkey-citeproof-connector.js
 // @match        *://*/*
 // @match        *://localhost:*/*
 // @require      https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js
