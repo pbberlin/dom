@@ -33,6 +33,8 @@ func (ur *UploadResponse) RespondJson(w http.ResponseWriter) {
 
 func uploadReceiver(w http.ResponseWriter, r *http.Request) {
 
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+
 	ur := new(UploadResponse)
 	defer func() {
 		logx.Debugf(r, ur.Msg)
