@@ -53,8 +53,15 @@ if (typeof jQuery === 'undefined') {
                 s += '    touch-action: none;';
                 s += '}';
                 s += '#id32168 { ';
-                s += '    right: 10px; top: 10px; width: 150px; height: 70px; padding: 1.5em; background-color: #eaa;';
+                s += '    right: 10px; top: 10px; width: 150px; min-height: 40px;';
                 s += '    position: absolute; z-index: 2100;';
+                s += '    background-color: #aca;';
+                s += '    border: 1px solid #464;';
+                s += '    border-radius: 8px;';
+                s += '    font-family: Monospace;';
+                s += '    padding: 16px 14px;';
+                s += '    font-size: 13px;';
+                s += '    text-align: center;';
                 s += '}';
                 s += '</style>';
                 $(s).appendTo('head');
@@ -62,7 +69,7 @@ if (typeof jQuery === 'undefined') {
 
 
                 var cnt = "https://citeproof.appspot.com/upload-receiver";
-                var popupUpScaffold = "<div id='bracket32168' style='position: relative;'><div id='id32168' >Drag_me_tamper</div></div>";
+                var popupUpScaffold = "<div id='bracket32168' style='position: relative;'><div id='id32168' >Click to save as Quotation. <span style='font-size:10px;'><br><br>or drag to move<span></div></div>";
                 $('body').prepend(popupUpScaffold);  //next after <body;  most counter intuitive: stackoverflow.com/questions/5073016
             }
         }

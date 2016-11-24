@@ -22,6 +22,7 @@ type UploadResponse struct {
 	Ok  bool   `json:"ok"`
 	Msg string `json:"msg"`
 	Url string `json:"url"`
+	Key string `json:"key"`
 }
 
 func (ur *UploadResponse) RespondJson(w http.ResponseWriter) {
@@ -80,5 +81,6 @@ func uploadReceiver(w http.ResponseWriter, r *http.Request) {
 	ur.Ok = true
 	ur.Msg = "saved successfully"
 	ur.Url = fmt.Sprintf("/show-detail?val=%v&key=%v", pg.Val, key.Encode())
+	ur.Key = key.Encode()
 
 }
