@@ -30,13 +30,15 @@ func queryPages(w http.ResponseWriter, r *http.Request) {
 
 	q := datastore.NewQuery(htmlPageKind)
 	valstr := r.FormValue("val")
-	val, err := strconv.Atoi(valstr)
-	if err != nil {
-	} else {
-		q = q.Filter("Val >=", val)
-		logx.Debugf(r, "val is %v", val)
-	}
-	q = q.Order("Val").Order("Url").Order("UnixTs")
+	val, _ := strconv.Atoi(valstr)
+	paramStr := r.FormValue("param")
+	param, _ := strconv.Atoi(paramStr)
+
+	pgForKey := HtmlPage{Param: param, Val: val}
+	key := datastore.NewKey(ctx, htmlPageKind, pgForKey.Key(), 0, nil)
+
+	q = q.Filter("__key__ >", key)
+	q = q.Order("__key__")
 	q = q.Offset(skip).Limit(5)
 	var pages []HtmlPage
 	keys, err := q.GetAll(ctx, &pages)

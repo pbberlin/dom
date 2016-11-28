@@ -12,10 +12,11 @@ import (
 )
 
 type UploadRequest struct {
-	Url    string `formam:"urlx" json:"urlx"`
-	ValId  int    `formam:"val_id" json:"val_id"`
-	Data   string `formam:"data" json:"data"` // cannot be byte :(
-	Submit string `formam:"submit2" json:"-"`
+	Url     string `formam:"urlx" json:"urlx"`
+	ParamId int    `formam:"param_id" json:"param_id"`
+	ValId   int    `formam:"val_id" json:"val_id"`
+	Data    string `formam:"data" json:"data"` // cannot be byte :(
+	Submit  string `formam:"submit2" json:"-"`
 }
 
 type UploadResponse struct {

@@ -13,11 +13,12 @@ import (
 )
 
 type HtmlPage struct {
+	Param  int    // Param is an app specific id, the same Url might be quoted for different params
+	Val    int    // Val   is an app specific id, the same Url might be quoted for different vals
 	Url    string // The Url gets subdomains normalized to dirs; thus its sortable
-	Body   []byte `datastore:",noindex"` // []byte to string conversions cause mem copy
-	Val    int    // Val is an app specific id, the same Url can be quoted at different positions
 	UnixTs int64
 	// T      time.Time // We could drop this, if UnixTs
+	Body []byte `datastore:",noindex"` // []byte to string conversions cause mem copy
 }
 
 const htmlPageKind = "HtmlPage"
@@ -32,7 +33,7 @@ func putExample(w http.ResponseWriter, r *http.Request) {
 }
 
 func (pg *HtmlPage) Key() string {
-	return fmt.Sprintf("%09v-%v-%v", pg.Val, pg.Url, pg.UnixTs)
+	return fmt.Sprintf("%04v-%04v-%v-%v", pg.Param, pg.Val, pg.Url, pg.UnixTs)
 }
 
 func (pg *HtmlPage) Put(r *http.Request) (*datastore.Key, error) {
