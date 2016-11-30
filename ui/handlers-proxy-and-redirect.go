@@ -121,6 +121,12 @@ func showForm(w http.ResponseWriter, r *http.Request) {
 				Url:  fj.Req.URL.String(),
 				Body: cnt,
 			}
+			paramstr := r.FormValue("param")
+			pg.Param, err = strconv.Atoi(paramstr)
+			if err != nil {
+				// ignore, assuming 0
+				pg.Param = valCustom
+			}
 			valstr := r.FormValue("val")
 			pg.Val, err = strconv.Atoi(valstr)
 			if err != nil {
@@ -194,9 +200,10 @@ func formRedirector(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "%s \n\n", msg)
 
 	pg := HtmlPage{
-		Url:  fj.Req.URL.String(),
-		Body: cnt,
-		Val:  valCustom,
+		Param: valCustom,
+		Val:   valCustom,
+		Url:   fj.Req.URL.String(),
+		Body:  cnt,
 	}
 	pg.Put(r)
 

@@ -3,8 +3,8 @@
 	</div>
 {{end}}
 
-<form action="{{.Protocol}}://{{.Host}}{{.Path}}" method="post" >
 <div style='margin:8px;'>
+<form action="{{.Protocol}}://{{.Host}}{{.Path}}" method="post" >
 
   	<span class='ib' style='width:99%'>
   		URL<br />
@@ -56,7 +56,6 @@
 		value="true"  
 		{{if eq true .ProcessOptions.SkipImage2Link}}checked{{end}} 
 	>
-
-
-</div>
 </form>
+</div>
+

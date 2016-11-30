@@ -27,7 +27,8 @@ func ExplicitInit(mux *http.ServeMux) {
 		http.HandleFunc(cf.FormRedirectorURI, formRedirector)
 		http.HandleFunc("/put-example", putExample)
 		http.HandleFunc("/query-pages", queryPages)
-		http.HandleFunc("/show-detail", showDetail)
+		http.HandleFunc("/show-page", showPage)
+		http.HandleFunc("/delete-page", deletePage)
 		http.HandleFunc("/upload-receiver", uploadReceiver)
 	} else {
 		// mux.HandleFunc("/", showForm)
@@ -35,7 +36,8 @@ func ExplicitInit(mux *http.ServeMux) {
 		mux.HandleFunc(cf.FormRedirectorURI, formRedirector)
 		mux.HandleFunc("/put-example", putExample)
 		mux.HandleFunc("/query-pages", queryPages)
-		mux.HandleFunc("/show-detail", showDetail)
+		mux.HandleFunc("/show-page", showPage)
+		mux.HandleFunc("/delete-page", deletePage)
 		mux.HandleFunc("/upload-receiver", uploadReceiver)
 	}
 

@@ -67,9 +67,10 @@ func uploadReceiver(w http.ResponseWriter, r *http.Request) {
 	cnt := localCleaner.ProcessLean([]byte(frm.Data))
 
 	pg := HtmlPage{
-		Val:  frm.ValId,
-		Url:  frm.Url,
-		Body: cnt,
+		Param: frm.ParamId,
+		Val:   frm.ValId,
+		Url:   frm.Url,
+		Body:  cnt,
 	}
 	key, err := pg.Put(r)
 	if err != nil {

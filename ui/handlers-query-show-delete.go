@@ -33,10 +33,8 @@ func queryPages(w http.ResponseWriter, r *http.Request) {
 	val, _ := strconv.Atoi(valstr)
 	paramStr := r.FormValue("param")
 	param, _ := strconv.Atoi(paramStr)
-
 	pgForKey := HtmlPage{Param: param, Val: val}
 	key := datastore.NewKey(ctx, htmlPageKind, pgForKey.Key(), 0, nil)
-
 	q = q.Filter("__key__ >", key)
 	q = q.Order("__key__")
 	q = q.Offset(skip).Limit(5)
@@ -49,7 +47,8 @@ func queryPages(w http.ResponseWriter, r *http.Request) {
 	logx.Debugf(r, "found %v pages", len(pages))
 	for i, p := range pages {
 		ts := time.Unix(p.UnixTs, 0).Format("02 Jan 2006 15:04")
-		msg := fmt.Sprintf("<a href='/show-detail?key=%v'>%2d: %08v %v - %v<a>\n", keys[i].Encode(), i+skip, p.Val, p.Url, ts)
+		msg := fmt.Sprintf("<a href='/delete-page?key=%v'>Del</a> <a href='/show-page?key=%v'>%2d: %08v %08v %v - %v<a>\n",
+			keys[i].Encode(), keys[i].Encode(), i+skip, p.Param, p.Val, p.Url, ts)
 		// logx.Debugf(r, msg)
 		w.Write([]byte(msg))
 	}
@@ -59,17 +58,17 @@ func queryPages(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if skip > 0 {
-		str := ` <a href='/query-pages?skip=%v&val=%v'> << <a> `
-		w.Write([]byte(fmt.Sprintf(str, skip-batchSize, val)))
+		str := ` <a href='/query-pages?skip=%v&param=%v&val=%v'> << <a> `
+		w.Write([]byte(fmt.Sprintf(str, skip-batchSize, param, val)))
 	}
 
 	if len(pages) >= batchSize {
-		str := ` <a href='/query-pages?skip=%v&val=%v'> >> <a> `
-		w.Write([]byte(fmt.Sprintf(str, skip+batchSize, val)))
+		str := ` <a href='/query-pages?skip=%v&param=%v&val=%v'> >> <a> `
+		w.Write([]byte(fmt.Sprintf(str, skip+batchSize, param, val)))
 	}
 }
 
-func showDetail(w http.ResponseWriter, r *http.Request) {
+func showPage(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-type", "text/html; charset=utf-8")
 	if !logx.IsAppengine() {
@@ -101,5 +100,35 @@ func showDetail(w http.ResponseWriter, r *http.Request) {
 
 	// w.Write([]byte(util.IndentedDump(pg)))
 	w.Write(pg.Body)
+
+}
+
+func deletePage(w http.ResponseWriter, r *http.Request) {
+
+	w.Header().Set("Content-type", "text/html; charset=utf-8")
+	if !logx.IsAppengine() {
+		w.Write([]byte("Data Store delete is only available on app engine"))
+		return
+	}
+	ctx := appengine.NewContext(r)
+
+	keystr := r.FormValue("key")
+	k, err := datastore.DecodeKey(keystr)
+	if err != nil {
+		w.Write([]byte("<div style='white-space: pre-wrap;font-family: monospace;'>"))
+		w.Write([]byte(fmt.Sprintf("err1 %v \n\t%v\n", err, k)))
+		return
+	}
+
+	err = datastore.Delete(ctx, k)
+	if err != nil {
+		w.Write([]byte("<div style='white-space: pre-wrap;font-family: monospace;'>"))
+		w.Write([]byte(fmt.Sprintf("err2 %v\n", err)))
+		return
+	}
+
+	msg := fmt.Sprintf("deleted key %v", k)
+	logx.Debugf(r, msg)
+	w.Write([]byte(msg))
 
 }
