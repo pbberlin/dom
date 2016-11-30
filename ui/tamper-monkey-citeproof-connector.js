@@ -3,7 +3,7 @@
 // @description  include jQuery and make sure window.$ is the content page's jQuery version, and this.$ is our jQuery version.
 // @description  http://stackoverflow.com/questions/28264871/require-jquery-to-a-safe-variable-in-tampermonkey-script-and-console
 // @namespace    http://your.homepage/
-// @version      0.123
+// @version      0.124
 // @author       iche
 // @downloadURL  https://raw.githubusercontent.com/pbberlin/dom/master/ui/tamper-monkey-citeproof-connector.js
 // @updateURL    https://raw.githubusercontent.com/pbberlin/dom/master/ui/tamper-monkey-citeproof-connector.js
@@ -53,6 +53,7 @@ if (typeof jQuery === 'undefined') {
                 s += '    touch-action: none;';
                 s += '}';
                 s += '#id32168 { ';
+                s += '    cursor: pointer;';
                 s += '    right: 10px; top: 10px; width: 150px; min-height: 40px;';
                 s += '    position: absolute; z-index: 2100;';
                 s += '    background-color: #aca;';
