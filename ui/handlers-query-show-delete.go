@@ -66,6 +66,10 @@ func queryPages(w http.ResponseWriter, r *http.Request) {
 		str := ` <a href='/query-pages?skip=%v&param=%v&val=%v'> >> <a> `
 		w.Write([]byte(fmt.Sprintf(str, skip+batchSize, param, val)))
 	}
+
+	// http://citeproof.appspot.com/show-page-by-url?url=angel.co/121giving
+	str := `<br><br> <a href='/show-page-by-url?url=angel.co/121giving'>view by url<a> `
+	w.Write([]byte(str))
 }
 
 func showPage(w http.ResponseWriter, r *http.Request) {
