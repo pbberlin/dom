@@ -102,6 +102,47 @@ func showPage(w http.ResponseWriter, r *http.Request) {
 	w.Write(pg.Body)
 
 }
+func showPageByUrl(w http.ResponseWriter, r *http.Request) {
+
+	w.Header().Set("Content-type", "text/html; charset=utf-8")
+	if !logx.IsAppengine() {
+		w.Write([]byte("Data Store detail query is only available on app engine"))
+		return
+	}
+	ctx := appengine.NewContext(r)
+
+	url := r.FormValue("url")
+	gqlTpl := `
+		SELECT *
+		FROM HtmlPage 
+		WHERE Val=-10 AND Url >= 'angel.co/%s'
+		ORDER BY Val,Url,UnixTs
+		LIMIT 4
+		OFFSET 0
+	`
+	gql := fmt.Sprintf(gqlTpl, url)
+	_ = gql
+
+	q := datastore.NewQuery(htmlPageKind)
+	q = q.Filter("Val =", -10)
+	q = q.Filter("Url >=", url)
+	q = q.Order("Url")
+	q = q.Order("UnixTs")
+	q = q.Offset(0).Limit(4)
+	var pages []HtmlPage
+	_, err := q.GetAll(ctx, &pages)
+	if err != nil {
+		w.Write([]byte(fmt.Sprintf("err %v\n", err)))
+		return
+	}
+
+	logx.Debugf(r, "found %v pages for %v", len(pages), url)
+	for _, pg := range pages {
+		w.Write([]byte(pg.Body))
+		break
+	}
+
+}
 
 func deletePage(w http.ResponseWriter, r *http.Request) {
 

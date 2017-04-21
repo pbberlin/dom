@@ -28,6 +28,7 @@ func ExplicitInit(mux *http.ServeMux) {
 		http.HandleFunc("/put-example", putExample)
 		http.HandleFunc("/query-pages", queryPages)
 		http.HandleFunc("/show-page", showPage)
+		http.HandleFunc("/show-page-by-url", showPageByUrl)
 		http.HandleFunc("/delete-page", deletePage)
 		http.HandleFunc("/upload-receiver", uploadReceiver)
 	} else {
